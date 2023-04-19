@@ -11,6 +11,7 @@ TagManager:
   - Wall Top
   - Paper
   - Rock
+  - Background
   - Scissors
   layers:
   - Default

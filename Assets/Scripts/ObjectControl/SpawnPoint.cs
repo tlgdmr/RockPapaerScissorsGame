@@ -29,7 +29,7 @@ public class SpawnPoint : MonoBehaviour
 
     private void SpawnObjects()
     {
-        do
+        while (count < maxObjects)
         {
             Instantiate(paper, paperSpawnPoint.transform.position, Quaternion.identity, background.transform);
 
@@ -38,7 +38,6 @@ public class SpawnPoint : MonoBehaviour
             Instantiate(scissors, scissorsSpawnPoint.transform.position, Quaternion.identity, background.transform);
 
             count++;
-
-        } while (count <= maxObjects);
+        }
     }
 }

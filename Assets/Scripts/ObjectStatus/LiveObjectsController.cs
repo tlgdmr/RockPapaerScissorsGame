@@ -7,15 +7,17 @@ using UnityEngine;
 
 public class LiveObjectsController : MonoBehaviour
 {
+    [SerializeField] GameEngine gameEngine;
+
     [SerializeField] GameObject background;
 
     [SerializeField] TMP_Text rock;
     [SerializeField] TMP_Text scissors;
     [SerializeField] TMP_Text paper;
 
-    int numberOfRock;
-    int numberOfScissors;
-    int numberOfPaper;
+    public int numberOfRock { get; private set; }
+    public int numberOfScissors { get; private set; }
+    public int numberOfPaper { get; private set; }
 
     private void Update()
     {
@@ -28,25 +30,30 @@ public class LiveObjectsController : MonoBehaviour
         numberOfScissors = 0;
         numberOfPaper = 0;
 
-        for (int i = 0; i <= background.transform.childCount - 1; i++)
+        for (int i = 0; i < background.transform.childCount; i++)
         {
             GameObject child = background.transform.GetChild(i).gameObject;
 
             if (child.CompareTag("Rock"))
             {
                 numberOfRock++;
-                rock.text = numberOfRock.ToString();
             }
             else if (child.CompareTag("Paper"))
             {
                 numberOfPaper++;
-                paper.text = numberOfPaper.ToString();
             }
-            else
+            else if (child.CompareTag("Scissors"))
             {
                 numberOfScissors++;
-                scissors.text = numberOfScissors.ToString();
             }
+
+            rock.text = numberOfRock.ToString();
+            paper.text = numberOfPaper.ToString();
+            scissors.text = numberOfScissors.ToString();
         }
+        if (background.transform.childCount > 3) { return; }
+
+        gameEngine.CheckWinner();
     }
 }
+
